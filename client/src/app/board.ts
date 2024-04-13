@@ -46,3 +46,27 @@ export function drawBoard(
 
   return cells;
 }
+
+export function populateBoard(cells: HTMLDivElement[], data: number[]) {
+  for (let i = 0; i < cells.length; i++)
+    if (data[i] != 0) cells[i].textContent = String(data[0]);
+}
+
+export function stringToBoard(boardString: string, size: number) {
+  const board = [];
+  for (let i = 0; i < size; i++) {
+    const row = [];
+    for (let j = 0; j < size; j++) {
+      const index = i * size + j;
+      const digit = parseInt(boardString.charAt(index), 10);
+      row.push(digit);
+    }
+    board.push(row);
+  }
+
+  return board;
+}
+
+export function boardToString(board: number[][]) {
+  return board.map((row) => row.join("")).join("");
+}
