@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Rubik";
+  src: url("./assets/Rubik.ttf") format("truetype");
+}
+
+body {
+  @apply font-[Rubik] bg-slate-950;
+}
+
+.app {
+  @apply h-screen w-screen flex items-center justify-center max-w-screen-xl m-auto;
+}
+
+/* board */
+.board {
+  @apply grid grid-cols-9 grid-rows-9 w-[450px] h-[450px] bg-slate-900 rounded-lg gap-0.5 overflow-hidden shadow-2xl shadow-sky-800/30;
+}
+.cell {
+  @apply bg-slate-800 cursor-pointer hover:bg-slate-700 w-full h-full flex leading-[48px] items-center text-center text-white font-medium text-2xl justify-center outline-none;
+}
+.cell-active {
+  @apply !bg-slate-600;
+}
+
+/* stats */
+.stats-item {
+  @apply flex flex-col justify-center items-center w-fit;
+}
+.stats-icon {
+  @apply w-10 h-10 mt-3;
+}
+.stats-value {
+  @apply text-neutral-300 text-2xl font-bold block;
+}
+.stats-unit {
+  @apply text-neutral-400 text-sm font-medium;
+}
+
+/* btns */
+.btn {
+  @apply py-2 px-6 font-semibold rounded-lg transition hover:scale-105 active:scale-95 border-b-4;
+}
+.btn-primary {
+  @apply bg-emerald-600 text-emerald-50 border-emerald-800 hover:bg-emerald-500 active:border-emerald-500;
+}
+.btn-secondary {
+  @apply bg-rose-600 text-rose-50  border-b-rose-800 hover:bg-rose-500 active:border-rose-500;
+}
+
+/* menu */
+.menu {
+}
+.menu-title {
+  @apply text-neutral-400 text-sm font-medium mb-2;
+}
+.menu-btn {
+  @apply text-indigo-500 ring-2 ring-indigo-500 font-medium tracking-wide w-full text-start py-2 px-4 rounded-lg;
+}
+.menu-list {
+}
+.menu-item {
+}

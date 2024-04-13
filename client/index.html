@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World!</title>
+  </head>
+  <body>
+    <div class="app">
+      <!-- board & stats -->
+      <div class="grid grid-cols-2 gap-10 h-[500px]">
+        <div id="board" class="board"></div>
+
+        <!-- stats & settings -->
+        <div class="flex flex-col max-w-xs">
+          <!-- stats -->
+          <section id="stats" class="w-full"></section>
+
+          <!-- settings -->
+          <section id="settings" class="w-full mt-12"></section>
+
+          <!-- action btns -->
+          <div class="space-x-2 mt-12">
+            <button id="solve-btn" class="btn btn-primary">Solve</button>
+            <button id="regenerate-btn" class="btn btn-secondary">
+              New Board
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/renderer.ts"></script>
+  </body>
+</html>
