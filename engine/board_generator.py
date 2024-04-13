@@ -7,15 +7,16 @@ class BoardGenerator:
     """
 
     BOARD_SIZE = {
+        4: 2,
         9: 3,
         16: 4
     }
 
     DIFFICULTY = {
-        'easy': 0.7,
-        'medium': 0.5,
-        'hard': 0.3,
-        'very hard': 0.1,
+        'EASY': 0.3,
+        'MEDIUM': 0.5,
+        'HARD': 0.7,
+        'VERY_HARD': 0.9,
     }
 
     def __init__(self, size=9, complexity='easy'):

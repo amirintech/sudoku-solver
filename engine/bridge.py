@@ -10,20 +10,20 @@ def listen():
     """
     while True:
         req = input()
-
-        # =================== temporary for devlopment =================== 
-        if req.startswith("IGNORE"):
-            print("IGNORE", req)
+        
+        # ================== FOR DEVELOPMENT ================== 
+        if req.startswith("DEBUG"):
             continue
-        # =================== ======================== =================== 
+        # ==================  ==================  =============
         
         req = json.loads(req)
-        match req.type:
-            case "generate_board": handle_generate_board(req.size, req.complexity)
-            case "solve_board": handle_solve_board(req.board, req.size, req.algorithm, req.population)
+        data = req["data"]
+        match req["action"]:
+            case "GENERATE_BOARD": handle_generate_board(data["size"], data["complexity"])
+            case "SOLVE_BOARD": handle_solve_board(data["board"], data["size"], data["algorithm"], data["population"])
             
   
-def write_json(action: str, data: object) -> str: 
+def write_json(action: str, data: object): 
     """
     Writes JSON to STDIN
     """
@@ -32,6 +32,7 @@ def write_json(action: str, data: object) -> str:
         "action": action,
         "data": data,
     })
+    
     print(res)
     
 
@@ -39,21 +40,28 @@ def handle_generate_board(size: int, complexity: str):
     """
     Generates a random Sudoku board
     """
-    
-    write_json("generate_board", BoardGenerator(size, complexity).generate())
+
+    board = flatten_board(BoardGenerator(size, complexity).generate())
+    data = {
+        "size":  size,
+        "board": board,
+    }
+    write_json("GENERATE_BOARD", data)
     
     
 def handle_solve_board(board: List[List[int]], size: int, algorithm: str, population_size: int=500):
     """
     Solves a Sudoku board given some algorithm
-    """
+    """ 
     
+    constructed_board = construct_board(board, size)
     back_solver = BacktrackingSolver()
-    solved_board = back_solver.backtracking_algorithm(board, size)
-    
+    solved_board = back_solver.backtracking_algorithm(constructed_board, size)
+
     match algorithm:
-        case "backtracking": write_json("solve_board", solve_backtracking(board, size))
-        case "genetic": write_json("solve_board", solve_genetic(board, solved_board, population_size))
+        case "BACKTRACKING": write_json("SOLVE_BOARD", solve_backtracking(constructed_board, size))
+        case "GENETIC": write_json("SOLVE_BOARD", solve_genetic(constructed_board, solved_board, population_size))
+
         
 
 def solve_backtracking(board: List[List[int]], size: int) -> Dict:
@@ -65,7 +73,7 @@ def solve_backtracking(board: List[List[int]], size: int) -> Dict:
     solved_board = back_solver.backtracking_algorithm(board, size)
     
     return {
-        "solvedBoard": solved_board,
+        "solvedBoard": flatten_board(solved_board),
         "iterations": back_solver.iterations,
         "time" : back_solver.elapsed_time,
         "memory": back_solver.memory_used,
@@ -78,29 +86,45 @@ def solve_genetic(unsolved_board: List[List[int]], solved_board: List[List[int]]
     Solves board using genetic algorithm
     """
 
-    flattened_board = [item for row in unsolved_board for item in row]
-    flattened_board = ''.join(map(str, flattened_board))
-
-    flattened_target = [item for row in solved_board for item in row]
-    flattened_target = ''.join(map(str, flattened_target))
-
+    flattened_board = flatten_board(unsolved_board)
+    flattened_target = flatten_board(solved_board)
     population = []
     for _ in range(population_size):
         population.append(GeneticSolver(flattened_board, flattened_target, None))
 
     population[0].genetic_algorithm(population,population_size)
-
-    print("\nNumber Of Iterations:", population[0].get_iterations())
-    print(f"\nExecution time: {population[0].elapsed_time:.4f} seconds")
-    print(f"\nExecution memory: {population[0].get_memory()} MB")
     
     return {
-        "solvedBoard": solved_board,
+        "board": flattened_board,
         "iterations": population[0].iterations,
         "time": population[0].elapsed_time,
         "memory":  population[0].memory_used,
-        "snapshots":  population[0].snapshots
+        # "snapshots":  population[0].snapshots
     }
 
+
+def flatten_board(board: List[List[int]]) -> str:
+    """
+    Flats a 2D board
+    """
+    
+    flattened_board = [item for row in board for item in row]
+    return ''.join(map(str, flattened_board))
+
+
+def construct_board(board: str, size: int) -> List[List[int]]:
+    """
+    Converts a string stream of Sudoku board to a 2D array
+    """
+    
+    res = []
+    rows = [board[i : i + size] for i in range(0, len(board), size)] # split the string into rows of length 9
+    for row in rows:
+        numbers = [int(char) for char in row]
+        res.append(numbers)
+
+    return res
+
+    
 
 listen()
