@@ -41,6 +41,7 @@ export function drawBoard(
         cell.style.borderBottom = "3px solid rgb(15 23 42)";
 
       parent.appendChild(cell);
+      cells.push(cell);
     }
   }
 
@@ -48,25 +49,27 @@ export function drawBoard(
 }
 
 export function populateBoard(cells: HTMLDivElement[], data: number[]) {
-  for (let i = 0; i < cells.length; i++)
-    if (data[i] != 0) cells[i].textContent = String(data[0]);
+  for (let i = 0; i < cells.length; i++) {
+    if (data[i] != 0) {
+      cells[i].textContent = String(data[i]);
+    } else cells[i].textContent = "";
+  }
 }
 
-export function stringToBoard(boardString: string, size: number) {
-  const board = [];
-  for (let i = 0; i < size; i++) {
-    const row = [];
-    for (let j = 0; j < size; j++) {
-      const index = i * size + j;
-      const digit = parseInt(boardString.charAt(index), 10);
-      row.push(digit);
-    }
-    board.push(row);
-  }
-
-  return board;
+export function stringToBoard(boardString: string) {
+  return boardString.split("").map(Number);
 }
 
 export function boardToString(board: number[][]) {
   return board.map((row) => row.join("")).join("");
+}
+
+export function readBoard(cells: HTMLDivElement[]) {
+  return cells
+    .map((cell) => {
+      const val = cell.textContent.trim();
+      if (val == "") return 0;
+      return Number(val);
+    })
+    .join("");
 }

@@ -38,7 +38,7 @@ export interface GenerateBoardResData {
 }
 
 export interface SolveBoardResData {
-  board: string;
+  solvedBoard: string;
   time: number;
   memory: number;
   iterations: number;
@@ -48,7 +48,9 @@ export interface Win extends Window {
   api: {
     generateBoard: <T>(req: Packet<T>) => void;
     solveBoard: <T>(req: Packet<T>) => void;
-    onGenerateBoard: (callback: (res: GenerateBoardResData) => void) => void;
-    onSolvedBoard: (callback: (res: SolveBoardResData) => void) => void;
+    onGenerateBoard: (
+      callback: (res: Packet<GenerateBoardResData>) => void
+    ) => void;
+    onSolvedBoard: (callback: (res: Packet<SolveBoardResData>) => void) => void;
   };
 }

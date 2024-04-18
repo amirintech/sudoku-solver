@@ -28,14 +28,7 @@ const createWindow = () => {
   }
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
-
-  mainWindow.webContents.on("did-finish-load", () => {
-    mainWindow.webContents.send(
-      "message-from-main",
-      "Hello from main process!"
-    );
-  });
+  mainWindow.webContents.openDevTools();
 
   return mainWindow;
 };
@@ -51,7 +44,19 @@ app.whenReady().then(() => {
     });
 
   const win = createWindow();
-  setupEngine(win);
+  setupEngine((val) => {
+    let channel = "RES:";
+    switch (val.action) {
+      case Actions.GENERATE_BOARD:
+        channel += Actions.GENERATE_BOARD;
+        break;
+      case Actions.SOLVE_BOARD:
+        channel += Actions.SOLVE_BOARD;
+        break;
+    }
+
+    win.webContents.send(channel, val);
+  });
 });
 
 app.on("window-all-closed", () => {

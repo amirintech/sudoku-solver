@@ -1,20 +1,18 @@
 import { spawn } from "node:child_process";
 import { Packet } from "./types";
-import { BrowserWindow, ipcMain } from "electron";
 
 const basePath =
   __dirname.substring(0, __dirname.indexOf("/client")) + "/engine";
 const bridgePath = basePath + "/bridge.py";
 const bridge = spawn("python", [bridgePath]);
 
-export function setupEngine(win: BrowserWindow) {
+export function setupEngine(handleRes: <T>(packet: Packet<T>) => void) {
   bridge.stdout.on("data", (data) => {
     if ((data.toString() as string).startsWith("DEBUG")) return;
     const load = (data.toString() as string).trim();
     try {
       const data = JSON.parse(load);
-      console.log(data);
-      ipcMain.emit("RES:" + data.action, data.data);
+      handleRes(data);
     } catch (e) {
       console.log("DEBUG failed to parse JSON from bridge");
       console.log("DEBUG ", e);

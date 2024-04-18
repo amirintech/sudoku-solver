@@ -1,5 +1,10 @@
 import "./index.css";
-import { drawBoard } from "./app/board";
+import {
+  drawBoard,
+  populateBoard,
+  readBoard,
+  stringToBoard,
+} from "./app/board";
 import { renderStats } from "./app/stats";
 import { renderSettings } from "./app/settings";
 import {
@@ -10,6 +15,7 @@ import {
   Packet,
   SolutionAlgorithm,
   SolveBoardReqData,
+  SolveBoardResData,
   Win,
 } from "./types";
 
@@ -31,7 +37,7 @@ generateBtn.onclick = () => {
     action: Actions.GENERATE_BOARD,
     data: {
       size: 9,
-      complexity: BoardComplexity.EASY,
+      complexity: BoardComplexity.VERY_HARD,
     },
   };
   win.api.generateBoard(req);
@@ -42,8 +48,7 @@ solveBtn.onclick = () => {
     action: Actions.SOLVE_BOARD,
     data: {
       algorithm: SolutionAlgorithm.BACKTRACKING,
-      board:
-        "530070000600195000098000060800060003400803001700020006060000280000419005000080079",
+      board: readBoard(cells),
       population: 100,
       size: 9,
     },
@@ -52,7 +57,11 @@ solveBtn.onclick = () => {
   win.api.solveBoard(req);
 };
 
-win.api.onGenerateBoard((res: GenerateBoardResData) => {
-  console.log("HEYYYY!!!! : ", res);
-  // Do something with the response, e.g., update the board
+win.api.onGenerateBoard((res: Packet<GenerateBoardResData>) => {
+  populateBoard(cells, stringToBoard(res.data.board));
+});
+
+win.api.onSolvedBoard((res: Packet<SolveBoardResData>) => {
+  populateBoard(cells, stringToBoard(res.data.solvedBoard));
+  console.log(res.data);
 });
