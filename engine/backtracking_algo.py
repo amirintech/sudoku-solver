@@ -68,4 +68,5 @@ class BacktrackingSolver:
         end_mem = psutil.Process().memory_info().rss
         self.memory_used = round((end_mem - start_mem) / (1024**2),3)
         self.elapsed_time = backtracking_end - backtracking_start
+        
         return board

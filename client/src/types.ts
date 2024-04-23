@@ -4,15 +4,16 @@ export const enum Actions {
 }
 
 export const enum BoardComplexity {
-  EASY = "EASY",
-  MEDIUM = "MEDIUM",
-  HARD = "HARD",
-  VERY_HARD = "VERY_HARD",
+  EASY = "Easy",
+  MEDIUM = "Medium",
+  HARD = "Hard",
+  VERY_HARD = "Very Hard",
 }
 
 export const enum SolutionAlgorithm {
-  BACKTRACKING = "BACKTRACKING",
-  GENETIC = "GENETIC",
+  BACKTRACKING = "Backtracking",
+  GENETIC = "Genetic",
+  RULE_BASED = "Rule Base",
 }
 
 export interface Packet<T> {

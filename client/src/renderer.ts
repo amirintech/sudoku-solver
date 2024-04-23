@@ -20,15 +20,26 @@ import {
 } from "./types";
 
 const win = window as unknown as Win;
-
 const BOARD_SIZE = 9;
-
 const board = document.getElementById("board") as HTMLDivElement;
 const cells = drawBoard(BOARD_SIZE, board);
-renderStats(0.781, 3991, 991);
-renderSettings();
+renderStats(0, 0, 0);
 
-// Buttons
+const config = {
+  algorithm: SolutionAlgorithm.GENETIC,
+  difficulity: BoardComplexity.EASY,
+};
+
+renderSettings(
+  config.algorithm,
+  config.difficulity,
+  (a) => (config.algorithm = a),
+  (d) => (config.difficulity = d)
+);
+
+// ======================================================================
+// HANDLE SOLVE AND GENERATE BUTTONS' ACTIONS
+// ======================================================================
 const generateBtn = document.getElementById("generate-btn");
 const solveBtn = document.getElementById("solve-btn");
 
@@ -37,7 +48,7 @@ generateBtn.onclick = () => {
     action: Actions.GENERATE_BOARD,
     data: {
       size: 9,
-      complexity: BoardComplexity.VERY_HARD,
+      complexity: config.difficulity,
     },
   };
   win.api.generateBoard(req);
@@ -47,7 +58,7 @@ solveBtn.onclick = () => {
   const req: Packet<SolveBoardReqData> = {
     action: Actions.SOLVE_BOARD,
     data: {
-      algorithm: SolutionAlgorithm.BACKTRACKING,
+      algorithm: config.algorithm,
       board: readBoard(cells),
       population: 100,
       size: 9,
@@ -63,5 +74,8 @@ win.api.onGenerateBoard((res: Packet<GenerateBoardResData>) => {
 
 win.api.onSolvedBoard((res: Packet<SolveBoardResData>) => {
   populateBoard(cells, stringToBoard(res.data.solvedBoard));
-  console.log(res.data);
+  renderStats(res.data.time, res.data.memory, res.data.iterations);
 });
+
+// ======================================================================
+// ======================================================================

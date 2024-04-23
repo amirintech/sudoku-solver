@@ -53,6 +53,7 @@ body {
 
 /* menu */
 .menu {
+  @apply relative;
 }
 .menu-title {
   @apply text-neutral-400 text-sm font-medium mb-2;
@@ -61,6 +62,20 @@ body {
   @apply text-indigo-500 ring-2 ring-indigo-500 font-medium tracking-wide w-full text-start py-2 px-4 rounded-lg;
 }
 .menu-list {
+  @apply hover:cursor-pointer transition bg-slate-900 rounded-xl text-white font-medium overflow-hidden absolute w-[calc(100%+6px)] top-[76px] z-50 left-2/4 -translate-x-2/4 shadow-lg shadow-indigo-500/10;
 }
 .menu-item {
+  @apply hover:cursor-pointer transition hover:bg-slate-800 px-6 py-3 hover:text-indigo-500;
+}
+
+/* slider */
+.slider {
+  -webkit-appearance: none;
+  -webkit-transition: 0.2s;
+  @apply w-full h-4 rounded-md bg-indigo-700 outline-none hover:bg-indigo-600 transition-all duration-300 hover:rounded-full active:h-6;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  @apply appearance-none w-6 h-6 rounded-full cursor-pointer bg-indigo-300;
 }

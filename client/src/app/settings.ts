@@ -1,40 +1,61 @@
-export function renderSettings() {
-  const container = document.getElementById("settings");
-  container.innerHTML = `
-    <h2 class="text-white font-bold text-3xl mb-6">Engine Settings</h2>
+import { BoardComplexity, SolutionAlgorithm } from "../types";
 
-    <div class="space-y-3">
-        <div class="menu">
-            <p class="menu-title">
-                Difficulity Level
-            </p>
+export function renderSettings(
+  currentAlgorithm: SolutionAlgorithm,
+  currentDifficulity: BoardComplexity,
+  onSelectAlgorithm: (a: SolutionAlgorithm) => any,
+  onSelectDifficulity: (d: BoardComplexity) => any
+) {
+  createMenu(
+    document.querySelector("#algorithm-menu"),
+    [
+      SolutionAlgorithm.BACKTRACKING,
+      SolutionAlgorithm.GENETIC,
+      SolutionAlgorithm.RULE_BASED,
+    ],
+    onSelectAlgorithm
+  );
 
-            <button class="menu-btn">
-                Hard
-            </button>
+  createMenu(
+    document.querySelector("#difficulity-menu"),
+    [
+      BoardComplexity.EASY,
+      BoardComplexity.MEDIUM,
+      BoardComplexity.HARD,
+      BoardComplexity.VERY_HARD,
+    ],
+    onSelectDifficulity
+  );
+}
 
-            <ul class="hidden">
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-            </ul>
-        </div>
+function createMenu(
+  parent: HTMLDivElement,
+  items: string[],
+  onClick: (item: string) => any
+) {
+  const ul = parent.querySelector(".menu-list") as HTMLUListElement;
+  const btn = parent.querySelector(".menu-btn") as HTMLButtonElement;
 
-        <div class="menu">
-            <p class="menu-title">
-                Algorithm
-            </p>
+  const listItems = items.map((item) => {
+    const li = document.createElement("li");
+    li.onclick = () => {
+      const btn = parent.querySelector(".menu-btn");
+      btn.textContent = item;
+      ul.classList.add("hidden");
+      onClick(item);
+    };
+    li.textContent = item;
+    li.classList.add("menu-item");
 
-            <button class="menu-btn">
-                Backtracking
-            </button>
+    return li;
+  });
 
-            <ul class="hidden">
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-            </ul>
-        </div>
-    </div>
-    `;
+  for (const li of listItems) ul.appendChild(li);
+
+  ul.classList.add("hidden");
+
+  btn.textContent = listItems[0].textContent;
+  btn.onclick = () => {
+    ul.classList.toggle("hidden");
+  };
 }

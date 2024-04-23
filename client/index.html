@@ -16,7 +16,39 @@
           <section id="stats" class="w-full"></section>
 
           <!-- settings -->
-          <section id="settings" class="w-full mt-12"></section>
+          <section id="settings" class="w-full mt-12 space-y-5">
+            <h2 class="text-white font-bold text-3xl mb-6">Engine Settings</h2>
+
+            <div id="difficulity-menu" class="menu">
+              <p class="menu-title">Difficulity Level</p>
+              <button class="menu-btn"></button>
+              <ul class="menu-list"></ul>
+            </div>
+
+            <div id="algorithm-menu" class="menu">
+              <p class="menu-title">Algorithm</p>
+              <button class="menu-btn"></button>
+              <ul class="menu-list"></ul>
+            </div>
+
+            <div id="population-container" class="h-12">
+              <p class="menu-title">Population Size</p>
+              <div class="flex items-center gap-2">
+                <input
+                  id="population-slider"
+                  class="slider"
+                  type="range"
+                  min="100"
+                  max="500"
+                />
+                <span
+                  id="population-label"
+                  class="text-indigo-500 font-semibold"
+                  >200</span
+                >
+              </div>
+            </div>
+          </section>
 
           <!-- action btns -->
           <div class="space-x-2 mt-12">

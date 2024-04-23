@@ -27,7 +27,7 @@ def write_json(action: str, data: object):
     """
     Writes JSON to STDIN
     """
-    
+
     res = json.dumps({
         "action": action,
         "data": data,
@@ -85,7 +85,7 @@ def solve_genetic(unsolved_board: List[List[int]], solved_board: List[List[int]]
     """
     Solves board using genetic algorithm
     """
-
+    
     flattened_board = flatten_board(unsolved_board)
     flattened_target = flatten_board(solved_board)
     population = []
@@ -93,9 +93,9 @@ def solve_genetic(unsolved_board: List[List[int]], solved_board: List[List[int]]
         population.append(GeneticSolver(flattened_board, flattened_target, None))
 
     population[0].genetic_algorithm(population,population_size)
-    
+
     return {
-        "board": flattened_board,
+        "solvedBoard": flattened_board,
         "iterations": population[0].iterations,
         "time": population[0].elapsed_time,
         "memory":  population[0].memory_used,

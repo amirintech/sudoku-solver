@@ -13,10 +13,10 @@ class BoardGenerator:
     }
 
     DIFFICULTY = {
-        'EASY': 0.3,
-        'MEDIUM': 0.5,
-        'HARD': 0.7,
-        'VERY_HARD': 0.9,
+        'Easy': 0.3,
+        'Medium': 0.5,
+        'Hard': 0.7,
+        'Very Hard': 0.9,
     }
 
     def __init__(self, size=9, complexity='easy'):
