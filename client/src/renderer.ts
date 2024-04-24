@@ -5,7 +5,7 @@ import {
   readBoard,
   stringToBoard,
 } from "./app/board";
-import { renderStats } from "./app/stats";
+import { renderStats, resetStats } from "./app/stats";
 import { renderSettings } from "./app/settings";
 import {
   Actions,
@@ -70,6 +70,7 @@ solveBtn.onclick = () => {
 
 win.api.onGenerateBoard((res: Packet<GenerateBoardResData>) => {
   populateBoard(cells, stringToBoard(res.data.board));
+  resetStats();
 });
 
 win.api.onSolvedBoard((res: Packet<SolveBoardResData>) => {

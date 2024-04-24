@@ -1,4 +1,5 @@
 import { BoardComplexity, SolutionAlgorithm } from "../types";
+import { resetStats } from "./stats";
 
 export function renderSettings(
   onSelectAlgorithm: (a: SolutionAlgorithm) => any,
@@ -10,6 +11,7 @@ export function renderSettings(
     if (a === SolutionAlgorithm.GENETIC)
       populationContainer.classList.remove("hidden");
     else populationContainer.classList.add("hidden");
+    resetStats();
     onSelectAlgorithm(a);
   };
 

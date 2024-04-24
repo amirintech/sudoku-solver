@@ -34,7 +34,7 @@ body {
   @apply w-10 h-10 mt-3;
 }
 .stats-value {
-  @apply text-neutral-300 text-2xl font-bold block;
+  @apply text-neutral-300 text-2xl font-bold w-16 block m-auto text-center;
 }
 .stats-unit {
   @apply text-neutral-400 text-sm font-medium;
