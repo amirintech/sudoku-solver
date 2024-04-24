@@ -42,7 +42,7 @@ body {
 
 /* btns */
 .btn {
-  @apply py-2 px-6 font-semibold rounded-lg transition hover:scale-105 active:scale-95 border-b-4;
+  @apply py-2 px-6 font-semibold rounded-lg transition hover:scale-105 active:scale-95 border-b-4 disabled:opacity-50;
 }
 .btn-primary {
   @apply bg-emerald-600 text-emerald-50 border-emerald-800 hover:bg-emerald-500 active:border-emerald-500;

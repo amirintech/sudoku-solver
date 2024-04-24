@@ -59,8 +59,8 @@ def handle_solve_board(board: List[List[int]], size: int, algorithm: str, popula
     solved_board = back_solver.backtracking_algorithm(constructed_board, size)
 
     match algorithm:
-        case "BACKTRACKING": write_json("SOLVE_BOARD", solve_backtracking(constructed_board, size))
-        case "GENETIC": write_json("SOLVE_BOARD", solve_genetic(constructed_board, solved_board, population_size))
+        case "Backtracking": write_json("SOLVE_BOARD", solve_backtracking(constructed_board, size))
+        case "Genetic": write_json("SOLVE_BOARD", solve_genetic(constructed_board, solved_board, population_size))
 
         
 

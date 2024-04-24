@@ -28,13 +28,13 @@ renderStats(0, 0, 0);
 const config = {
   algorithm: SolutionAlgorithm.GENETIC,
   difficulity: BoardComplexity.EASY,
+  populationSize: 100,
 };
 
 renderSettings(
-  config.algorithm,
-  config.difficulity,
   (a) => (config.algorithm = a),
-  (d) => (config.difficulity = d)
+  (d) => (config.difficulity = d),
+  (p) => (config.populationSize = p)
 );
 
 // ======================================================================
@@ -60,7 +60,7 @@ solveBtn.onclick = () => {
     data: {
       algorithm: config.algorithm,
       board: readBoard(cells),
-      population: 100,
+      population: config.populationSize,
       size: 9,
     },
   };

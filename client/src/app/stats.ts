@@ -11,7 +11,6 @@ export function renderStats(
   const time = Number(executionTime.toFixed(3));
   container.innerHTML = `
     <h2 class="text-white font-bold text-3xl">Stats for Nerds</h2>
-    
     <ul class="mt-6 flex items-center w-full justify-between">    
         <li class="stats-item">
             <span class="stats-value">${time === 0 ? 0 : time}</span>

@@ -1,11 +1,18 @@
 import { BoardComplexity, SolutionAlgorithm } from "../types";
 
 export function renderSettings(
-  currentAlgorithm: SolutionAlgorithm,
-  currentDifficulity: BoardComplexity,
   onSelectAlgorithm: (a: SolutionAlgorithm) => any,
-  onSelectDifficulity: (d: BoardComplexity) => any
+  onSelectDifficulity: (d: BoardComplexity) => any,
+  onPopulationChange: (population: number) => any
 ) {
+  const handleSelectAlgorithm = (a: SolutionAlgorithm) => {
+    const populationContainer = document.getElementById("population-container");
+    if (a === SolutionAlgorithm.GENETIC)
+      populationContainer.classList.remove("hidden");
+    else populationContainer.classList.add("hidden");
+    onSelectAlgorithm(a);
+  };
+
   createMenu(
     document.querySelector("#algorithm-menu"),
     [
@@ -13,7 +20,7 @@ export function renderSettings(
       SolutionAlgorithm.GENETIC,
       SolutionAlgorithm.RULE_BASED,
     ],
-    onSelectAlgorithm
+    handleSelectAlgorithm
   );
 
   createMenu(
@@ -26,6 +33,8 @@ export function renderSettings(
     ],
     onSelectDifficulity
   );
+
+  initPopulationSlider(onPopulationChange);
 }
 
 function createMenu(
@@ -57,5 +66,18 @@ function createMenu(
   btn.textContent = listItems[0].textContent;
   btn.onclick = () => {
     ul.classList.toggle("hidden");
+  };
+}
+
+function initPopulationSlider(onPopulationChange: (p: number) => void) {
+  const slider = document.getElementById(
+    "population-slider"
+  ) as HTMLInputElement;
+  const label = document.getElementById("population-label") as HTMLLabelElement;
+
+  slider.oninput = (e) => {
+    const value = (e.target as any).value;
+    label.textContent = value;
+    onPopulationChange(Number(value));
   };
 }
