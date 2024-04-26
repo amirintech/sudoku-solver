@@ -12,14 +12,17 @@ const config: AppConfig = {
   size: 9,
 };
 
-const board = document.getElementById("board") as HTMLDivElement;
-const cells = drawBoard(config.size, board);
+const cells = drawBoard(config.size);
 renderStats(0, 0, 0);
 
 renderSettings(
   (a) => (config.algorithm = a),
   (d) => (config.difficulity = d),
-  (p) => (config.population = p)
+  (p) => (config.population = p),
+  (s) => {
+    config.size = Number(s[0]);
+    drawBoard(config.size);
+  }
 );
 
 renderActionButtons(config, cells);

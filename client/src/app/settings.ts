@@ -1,10 +1,11 @@
-import { BoardComplexity, SolutionAlgorithm } from "../types";
+import { BoardComplexity, BoardSize, SolutionAlgorithm } from "../types";
 import { resetStats } from "./stats";
 
 export function renderSettings(
   onSelectAlgorithm: (a: SolutionAlgorithm) => any,
   onSelectDifficulity: (d: BoardComplexity) => any,
-  onPopulationChange: (population: number) => any
+  onPopulationChange: (population: number) => any,
+  onSelectBoardSize: (s: string) => any
 ) {
   const handleSelectAlgorithm = (a: SolutionAlgorithm) => {
     const populationContainer = document.getElementById("population-container");
@@ -14,6 +15,14 @@ export function renderSettings(
     resetStats();
     onSelectAlgorithm(a);
   };
+
+  createMenu(
+    document.querySelector("#board-size-menu"),
+    [String(BoardSize.SZ9), String(BoardSize.SZ6), String(BoardSize.SZ4)].map(
+      (s) => `${s} by ${s}`
+    ),
+    onSelectBoardSize
+  );
 
   createMenu(
     document.querySelector("#algorithm-menu"),

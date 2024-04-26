@@ -8,7 +8,7 @@
 }
 
 body {
-  @apply font-[Rubik] bg-slate-950;
+  @apply font-[Rubik] bg-slate-950 select-none overflow-hidden;
 }
 
 .content {
@@ -21,7 +21,16 @@ body {
 
 /* board */
 .board {
-  @apply grid grid-cols-9 grid-rows-9 w-[450px] h-[450px] bg-slate-900 rounded-lg gap-0.5 overflow-hidden shadow-2xl shadow-sky-800/30;
+  @apply grid w-[450px] h-[450px] bg-slate-900 rounded-lg gap-0.5 overflow-hidden shadow-2xl shadow-sky-800/30;
+}
+.sz-9 {
+  @apply grid-cols-9 grid-rows-9;
+}
+.sz-6 {
+  @apply grid-cols-6 grid-rows-6;
+}
+.sz-4 {
+  @apply grid-cols-4 grid-rows-4;
 }
 .cell {
   @apply bg-slate-800 cursor-pointer hover:bg-slate-700 w-full h-full flex leading-[48px] items-center text-center text-white font-medium text-2xl justify-center outline-none;
@@ -38,7 +47,7 @@ body {
   @apply w-10 h-10 mt-3;
 }
 .stats-value {
-  @apply text-neutral-300 text-2xl font-bold w-16 block m-auto text-center;
+  @apply text-neutral-300 text-2xl font-bold w-20 block m-auto text-center;
 }
 .stats-unit {
   @apply text-neutral-400 text-sm font-medium;
@@ -53,6 +62,9 @@ body {
 }
 .btn-secondary {
   @apply bg-rose-600 text-rose-50  border-b-rose-800 hover:bg-rose-500 active:border-rose-500;
+}
+.btn-grey {
+  @apply bg-gray-600 border-b-gray-800 hover:bg-gray-500 active:border-gray-500;
 }
 
 /* menu */
@@ -83,3 +95,5 @@ body {
   -webkit-appearance: none;
   @apply appearance-none w-6 h-6 rounded-full cursor-pointer bg-indigo-300;
 }
+
+/* model */

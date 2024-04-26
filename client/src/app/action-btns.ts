@@ -10,6 +10,7 @@ import {
 } from "../types";
 import { populateBoard, readBoard, stringToBoard } from "./board";
 import { toggleLoadingAnimation } from "./loading";
+import { openModal } from "./modal";
 import { renderStats, resetStats } from "./stats";
 
 const win = window as unknown as Win;
@@ -53,6 +54,10 @@ export function renderActionButtons(
     win.api.solveBoard(req);
     toggleLoadingAnimation();
     disableButtons(btns);
+  };
+
+  settingsBtn.onclick = () => {
+    openModal();
   };
 
   win.api.onGenerateBoard((res: Packet<GenerateBoardResData>) => {

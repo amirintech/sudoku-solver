@@ -16,6 +16,12 @@ export const enum SolutionAlgorithm {
   RULE_BASED = "Rule Base",
 }
 
+export const enum BoardSize {
+  SZ4 = 4,
+  SZ6 = 6,
+  SZ9 = 9,
+}
+
 export interface AppConfig {
   difficulity: BoardComplexity;
   algorithm: SolutionAlgorithm;
