@@ -31,6 +31,9 @@ export function drawBoard(
   size: number,
   parent: HTMLDivElement
 ): HTMLDivElement[] {
+  const board = document.getElementById("board");
+  board.classList.add("sz-" + size);
+
   const cells: HTMLDivElement[] = [];
   for (let row = 1; row <= size; row++) {
     for (let col = 1; col <= size; col++) {

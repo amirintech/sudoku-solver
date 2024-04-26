@@ -16,6 +16,13 @@ export const enum SolutionAlgorithm {
   RULE_BASED = "Rule Base",
 }
 
+export interface AppConfig {
+  difficulity: BoardComplexity;
+  algorithm: SolutionAlgorithm;
+  population: number;
+  size: number;
+}
+
 export interface Packet<T> {
   action: Actions;
   data: T;

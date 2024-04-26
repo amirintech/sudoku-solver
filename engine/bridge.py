@@ -72,14 +72,6 @@ def solve_backtracking(board: List[List[int]], size: int) -> Dict:
     back_solver = BacktrackingSolver()
     solved_board = back_solver.backtracking_algorithm(board, size)
     
-    print("DEBUG ", {
-        "solvedBoard": flatten_board(solved_board),
-        "iterations": back_solver.iterations,
-        "time" : back_solver.elapsed_time,
-        "memory": back_solver.memory_used,
-        # "snapshots": back_solver.snapshots,
-    }  )
-    
     return {
         "solvedBoard": flatten_board(solved_board),
         "iterations": back_solver.iterations,

@@ -11,8 +11,12 @@ body {
   @apply font-[Rubik] bg-slate-950;
 }
 
+.content {
+  @apply w-screen h-screen relative before:absolute before:bg-gradient-to-tr before:from-pink-600 before:via-purple-600 before:to-sky-600 before:-z-10 flex items-center justify-center before:w-[200%] before:h-[200%] before:animate-spin;
+}
+
 .app {
-  @apply h-screen w-screen flex items-center justify-center max-w-screen-xl m-auto;
+  @apply w-screen h-screen rounded-lg flex items-center justify-center max-w-screen-xl m-auto z-20;
 }
 
 /* board */
@@ -42,7 +46,7 @@ body {
 
 /* btns */
 .btn {
-  @apply py-2 px-6 font-semibold rounded-lg transition hover:scale-105 active:scale-95 border-b-4 disabled:opacity-50;
+  @apply py-2 px-6 font-semibold rounded-lg transition hover:scale-105 active:scale-95 border-b-4 disabled:opacity-50 disabled:pointer-events-none;
 }
 .btn-primary {
   @apply bg-emerald-600 text-emerald-50 border-emerald-800 hover:bg-emerald-500 active:border-emerald-500;
