@@ -9,7 +9,7 @@ import {
   Win,
 } from "../types";
 import { populateBoard, readBoard, stringToBoard } from "./board";
-import { toggleLoadingAnimation } from "./loading";
+import { playLoadingAnimation, stopLoadingAnimation } from "./loading";
 import { openModal } from "./modal";
 import { renderStats, resetStats } from "./stats";
 
@@ -32,7 +32,7 @@ export function renderActionButtons(
     const req: Packet<GenerateBoardReqData> = {
       action: Actions.GENERATE_BOARD,
       data: {
-        size: 9,
+        size: config.size,
         complexity: config.difficulity,
       },
     };
@@ -47,12 +47,12 @@ export function renderActionButtons(
         algorithm: config.algorithm,
         board: readBoard(cells),
         population: config.population,
-        size: 9,
+        size: config.size,
       },
     };
 
     win.api.solveBoard(req);
-    toggleLoadingAnimation();
+    playLoadingAnimation();
     disableButtons(btns);
   };
 
@@ -69,7 +69,8 @@ export function renderActionButtons(
   win.api.onSolvedBoard((res: Packet<SolveBoardResData>) => {
     populateBoard(cells, stringToBoard(res.data.solvedBoard));
     renderStats(res.data.time, res.data.memory, res.data.iterations);
-    toggleLoadingAnimation();
+    console.log("hey");
+    stopLoadingAnimation();
     enableButtons(btns);
   });
 }

@@ -8,8 +8,8 @@ class BoardGenerator:
 
     BOARD_SIZE = {
         4: 2,
+        6: 2,
         9: 3,
-        16: 4
     }
 
     DIFFICULTY = {

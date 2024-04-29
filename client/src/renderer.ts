@@ -14,6 +14,7 @@ const config: AppConfig = {
 
 const cells = drawBoard(config.size);
 renderStats(0, 0, 0);
+renderActionButtons(config, cells);
 
 renderSettings(
   (a) => (config.algorithm = a),
@@ -21,8 +22,7 @@ renderSettings(
   (p) => (config.population = p),
   (s) => {
     config.size = Number(s[0]);
-    drawBoard(config.size);
+    const cells = drawBoard(config.size);
+    renderActionButtons(config, cells);
   }
 );
-
-renderActionButtons(config, cells);

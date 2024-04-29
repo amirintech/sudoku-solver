@@ -13,7 +13,7 @@ export const enum BoardComplexity {
 export const enum SolutionAlgorithm {
   BACKTRACKING = "Backtracking",
   GENETIC = "Genetic",
-  RULE_BASED = "Rule Base",
+  RULE_BASED = "Rule Based",
 }
 
 export const enum BoardSize {
