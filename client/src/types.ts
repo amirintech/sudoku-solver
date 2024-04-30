@@ -1,6 +1,7 @@
 export const enum Actions {
   GENERATE_BOARD = "GENERATE_BOARD",
   SOLVE_BOARD = "SOLVE_BOARD",
+  RUN_TESTS = "RUN_TESTS",
 }
 
 export const enum BoardComplexity {
@@ -13,7 +14,6 @@ export const enum BoardComplexity {
 export const enum SolutionAlgorithm {
   BACKTRACKING = "Backtracking",
   GENETIC = "Genetic",
-  RULE_BASED = "Rule Based",
 }
 
 export const enum BoardSize {
@@ -58,13 +58,22 @@ export interface SolveBoardResData {
   iterations: number;
 }
 
+export interface TestResult {
+  algorithm: SolutionAlgorithm;
+  success: boolean;
+  testCaseNumber: number;
+  done: boolean;
+}
+
 export interface Win extends Window {
   api: {
     generateBoard: <T>(req: Packet<T>) => void;
     solveBoard: <T>(req: Packet<T>) => void;
+    runTests: () => void;
     onGenerateBoard: (
       callback: (res: Packet<GenerateBoardResData>) => void
     ) => void;
     onSolvedBoard: (callback: (res: Packet<SolveBoardResData>) => void) => void;
+    onRunTests: (callback: (res: Packet<TestResult>) => void) => void;
   };
 }

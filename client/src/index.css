@@ -64,7 +64,7 @@ body {
   @apply bg-rose-600 text-rose-50  border-b-rose-800 hover:bg-rose-500 active:border-rose-500;
 }
 .btn-grey {
-  @apply bg-gray-600 border-b-gray-800 hover:bg-gray-500 active:border-gray-500;
+  @apply bg-sky-600 border-b-sky-800 hover:bg-sky-500 text-white active:border-sky-500;
 }
 
 /* menu */
@@ -97,3 +97,38 @@ body {
 }
 
 /* model */
+@keyframes spin {
+  to {
+    content: var(--tw-content);
+    transform: rotate(360deg);
+  }
+}
+.modal-overlay {
+  @apply w-screen absolute z-50 h-screen top-0 left-0 before:bg-gradient-to-br before:from-purple-900/60 before:to-sky-900/60 before:w-[200%] before:h-[200%] before:absolute before:-top-1/2 before:-left-1/2;
+
+  animation: roa;
+}
+.modal-overlay::before {
+  content: var(--tw-content);
+  animation: spin 2s linear infinite;
+}
+.modal {
+  @apply w-[800px] h-[600px] flex flex-col p-10 bg-slate-950 relative top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-lg shadow-2xl shadow-sky-700/20;
+}
+.modal-close-btn {
+  @apply bg-rose-600/20 rounded-full p-1 absolute top-4 right-4 hover:bg-rose-600 transition disabled:opacity-50;
+}
+.modal-content {
+  @apply flex flex-1 flex-col justify-center items-center space-y-10;
+}
+.timer {
+  @apply top-5 left-5 absolute text-indigo-300 font-medium flex items-center gap-2;
+}
+.steps {
+  @apply mt-16 space-y-6;
+}
+.step {
+  @apply text-indigo-100 flex items-center gap-2 font-bold;
+}
+.done-step {
+}

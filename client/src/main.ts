@@ -37,7 +37,11 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  const actions = [Actions.GENERATE_BOARD, Actions.SOLVE_BOARD];
+  const actions = [
+    Actions.GENERATE_BOARD,
+    Actions.SOLVE_BOARD,
+    Actions.RUN_TESTS,
+  ];
   for (const action of actions)
     ipcMain.on(action, (_, args) => {
       writeReq(args);
@@ -52,6 +56,9 @@ app.whenReady().then(() => {
         break;
       case Actions.SOLVE_BOARD:
         channel += Actions.SOLVE_BOARD;
+        break;
+      case Actions.RUN_TESTS:
+        channel += Actions.RUN_TESTS;
         break;
     }
 

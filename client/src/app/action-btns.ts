@@ -10,7 +10,7 @@ import {
 } from "../types";
 import { populateBoard, readBoard, stringToBoard } from "./board";
 import { playLoadingAnimation, stopLoadingAnimation } from "./loading";
-import { openModal } from "./modal";
+import { openTestInfoModal } from "./modal";
 import { renderStats, resetStats } from "./stats";
 
 const win = window as unknown as Win;
@@ -23,10 +23,8 @@ export function renderActionButtons(
     "generate-btn"
   ) as HTMLButtonElement;
   const solveBtn = document.getElementById("solve-btn") as HTMLButtonElement;
-  const settingsBtn = document.getElementById(
-    "settings-btn"
-  ) as HTMLButtonElement;
-  const btns = [generateBtn, solveBtn, settingsBtn];
+  const testBtn = document.getElementById("test-btn") as HTMLButtonElement;
+  const btns = [generateBtn, solveBtn, testBtn];
 
   generateBtn.onclick = () => {
     const req: Packet<GenerateBoardReqData> = {
@@ -56,8 +54,8 @@ export function renderActionButtons(
     disableButtons(btns);
   };
 
-  settingsBtn.onclick = () => {
-    openModal();
+  testBtn.onclick = () => {
+    openTestInfoModal();
   };
 
   win.api.onGenerateBoard((res: Packet<GenerateBoardResData>) => {
@@ -72,6 +70,10 @@ export function renderActionButtons(
     console.log("hey");
     stopLoadingAnimation();
     enableButtons(btns);
+  });
+
+  win.api.onRunTests((res) => {
+    console.log(res);
   });
 }
 
