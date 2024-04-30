@@ -1,8 +1,10 @@
+import json
+import os
+import pandas as pd
 from typing import Dict, List
 from board_generator import BoardGenerator
 from genetic_algo import GeneticSolver
 from backtracking_algo import BacktrackingSolver
-import json
     
 def listen():
     """
@@ -21,9 +23,10 @@ def listen():
         match req["action"]:
             case "GENERATE_BOARD": handle_generate_board(data["size"], data["complexity"])
             case "SOLVE_BOARD": handle_solve_board(data["board"], data["size"], data["algorithm"], data["population"])
+            case "RUN_TESTS": handle_run_tests()
             
   
-def write_json(action: str, data: object): 
+def write_json(action: str, data: object, flush=False): 
     """
     Writes JSON to STDIN
     """
@@ -33,9 +36,38 @@ def write_json(action: str, data: object):
         "data": data,
     })
     
-    print(res)
-    
+    print(res, flush=flush)
 
+
+def handle_run_tests():
+    """
+    Tests solving algorithms on sample dataset
+    """
+
+    def solve(row, algo, index):
+        board, solution = row['puzzle'], row['solution']
+        constructed_board = construct_board(board, 9)
+        solved = None
+        if algo == "Backtracking":
+            solved = solve_backtracking(constructed_board, 9)["solvedBoard"]
+        else:
+            solved = solve_genetic(board, solution, 500)["solvedBoard"]
+        
+        write_json(f"RUN_TESTS", {
+            "algorithm": algo,
+            "success": solved == solution,
+            "testCaseNumber": index,
+            "done": index == 499
+        }, True)
+            
+    dataset = pd.read_csv("../engine/test_dataset.csv").sample(n=500).reset_index()
+    dataset["puzzle"] = dataset["puzzle"].astype(str)
+    dataset["solution"] = dataset["solution"].astype(str)
+    
+    dataset.apply(lambda row: solve(row, "Backtracking", row.name), axis=1)
+    # dataset.apply(lambda row: solve(row, "Genetic", row.name), axis=1)
+    
+    
 def handle_generate_board(size: int, complexity: str):
     """
     Generates a random Sudoku board
