@@ -26,11 +26,7 @@ export function renderSettings(
 
   createMenu(
     document.querySelector("#algorithm-menu"),
-    [
-      SolutionAlgorithm.BACKTRACKING,
-      SolutionAlgorithm.GENETIC,
-      SolutionAlgorithm.RULE_BASED,
-    ],
+    [SolutionAlgorithm.BACKTRACKING, SolutionAlgorithm.GENETIC],
     handleSelectAlgorithm
   );
 

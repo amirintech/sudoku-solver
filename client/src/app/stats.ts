@@ -35,6 +35,5 @@ export function renderStats(
 
 export function resetStats() {
   const values = document.querySelectorAll("#stats .stats-value");
-  console.log(values);
   values.forEach((item) => (item.textContent = "0"));
 }

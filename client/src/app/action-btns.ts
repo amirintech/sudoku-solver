@@ -67,13 +67,8 @@ export function renderActionButtons(
   win.api.onSolvedBoard((res: Packet<SolveBoardResData>) => {
     populateBoard(cells, stringToBoard(res.data.solvedBoard));
     renderStats(res.data.time, res.data.memory, res.data.iterations);
-    console.log("hey");
     stopLoadingAnimation();
     enableButtons(btns);
-  });
-
-  win.api.onRunTests((res) => {
-    console.log(res);
   });
 }
 

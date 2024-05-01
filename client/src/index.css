@@ -116,7 +116,7 @@ body {
   @apply w-[800px] h-[600px] flex flex-col p-10 bg-slate-950 relative top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-lg shadow-2xl shadow-sky-700/20;
 }
 .modal-close-btn {
-  @apply bg-rose-600/20 rounded-full p-1 absolute top-4 right-4 hover:bg-rose-600 transition disabled:opacity-50;
+  @apply bg-rose-600/20 rounded-full p-1 absolute disabled:hover:bg-rose-600/20 top-4 right-4 hover:bg-rose-600 transition disabled:opacity-50;
 }
 .modal-content {
   @apply flex flex-1 flex-col justify-center items-center space-y-10;

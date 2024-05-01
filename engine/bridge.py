@@ -65,7 +65,7 @@ def handle_run_tests():
     dataset["solution"] = dataset["solution"].astype(str)
     
     dataset.apply(lambda row: solve(row, "Backtracking", row.name), axis=1)
-    # dataset.apply(lambda row: solve(row, "Genetic", row.name), axis=1)
+    dataset.apply(lambda row: solve(row, "Genetic", row.name), axis=1)
     
     
 def handle_generate_board(size: int, complexity: str):
@@ -109,7 +109,6 @@ def solve_backtracking(board: List[List[int]], size: int) -> Dict:
         "iterations": back_solver.iterations,
         "time" : back_solver.elapsed_time,
         "memory": back_solver.memory_used,
-        # "snapshots": back_solver.snapshots,
     }  
    
     
@@ -127,11 +126,10 @@ def solve_genetic(unsolved_board: List[List[int]], solved_board: List[List[int]]
     population[0].genetic_algorithm(population,population_size)
 
     return {
-        "solvedBoard": flattened_board,
+        "solvedBoard": solved_board,
         "iterations": population[0].iterations,
         "time": population[0].elapsed_time,
         "memory":  population[0].memory_used,
-        # "snapshots":  population[0].snapshots
     }
 
 

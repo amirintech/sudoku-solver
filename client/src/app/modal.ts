@@ -1,4 +1,4 @@
-import { Win } from "../types";
+import { SolutionAlgorithm, Win } from "../types";
 
 const win = window as unknown as Win;
 
@@ -31,7 +31,10 @@ export function openTestInfoModal() {
 }
 
 function openTestModal() {
-  const { modal } = openModal();
+  const { modal, closeBtn } = openModal();
+
+  closeBtn.setAttribute("disabled", "true");
+  modal.innerHTML += getAlgoBenchmark(null);
 
   const timerContainter = document.createElement("div");
   const timer = document.createElement("span");
@@ -41,7 +44,6 @@ function openTestModal() {
   `;
   timerContainter.appendChild(timer);
   timer.textContent = "00:00";
-  // const timerId = startTimer(timer);
 
   const stepsContainer = document.createElement("div");
   stepsContainer.classList.add("steps");
@@ -65,6 +67,7 @@ function openTestModal() {
     const loadingSetp = steps["0-loading"];
     const testingStep = steps["1-testing"];
     const doneStep = steps["2-done"];
+
     if (!completedSteps.has(loadingSetp)) {
       completedSteps.add(loadingSetp);
       stepCompleted(loadingSetp);
@@ -72,11 +75,20 @@ function openTestModal() {
     }
     if (!res.data.done)
       updateCaseCount(res.data.testCaseNumber + 2, testingStep);
-    else {
-      stepCompleted(testingStep);
-      stepsContainer.appendChild(doneStep);
-      stepCompleted(doneStep);
-      stopTimer(timerId);
+    else if (res.data.done) {
+      if (res.data.algorithm == SolutionAlgorithm.BACKTRACKING) {
+        document.getElementById("backtracking-time").innerText =
+          timer.innerText;
+        stopTimer(timerId);
+        startTimer(timer);
+      } else if (res.data.algorithm == SolutionAlgorithm.GENETIC) {
+        document.getElementById("genetic-time").innerText = timer.innerText;
+        stepCompleted(testingStep);
+        stepsContainer.appendChild(doneStep);
+        stepCompleted(doneStep);
+        stopTimer(timerId);
+        closeBtn.removeAttribute("disabled");
+      }
     }
   });
 }
@@ -156,4 +168,17 @@ function openModal() {
     modal,
     closeBtn,
   };
+}
+
+function getAlgoBenchmark(time: string | null) {
+  return `
+    <div class="mt-12 space-y-6 absolute bottom-12 left-10 font-bold text-rose-500">
+      <p>Backtracking took <span id="backtracking-time">${
+        time ? time : "__:__"
+      }</span></p>
+      <p>Genetic took <span id="genetic-time">${
+        time ? time : "__:__"
+      }</span></p>
+    </div>
+  `;
 }
