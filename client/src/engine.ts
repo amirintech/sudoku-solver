@@ -8,6 +8,7 @@ const bridge = spawn("python", [bridgePath]);
 
 export function setupEngine(handleRes: <T>(packet: Packet<T>) => void) {
   bridge.stdout.on("data", (data) => {
+    console.log(data.toString());
     if ((data.toString() as string).startsWith("DEBUG")) return;
     const load = (data.toString() as string).trim();
     try {

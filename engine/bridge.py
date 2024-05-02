@@ -6,6 +6,7 @@ from board_generator import BoardGenerator
 from genetic_algo import GeneticSolver
 from backtracking_algo import BacktrackingSolver
     
+
 def listen():
     """
     Listen for client requests and maps to handlers
@@ -87,12 +88,14 @@ def handle_solve_board(board: List[List[int]], size: int, algorithm: str, popula
     """ 
     
     constructed_board = construct_board(board, size)
-    back_solver = BacktrackingSolver()
-    solved_board = back_solver.backtracking_algorithm(constructed_board, size)
-
     match algorithm:
-        case "Backtracking": write_json("SOLVE_BOARD", solve_backtracking(constructed_board, size))
-        case "Genetic": write_json("SOLVE_BOARD", solve_genetic(constructed_board, solved_board, population_size))
+        case "Backtracking": 
+            write_json("SOLVE_BOARD", solve_backtracking(constructed_board, size))
+
+        case "Genetic": 
+            back_solver = BacktrackingSolver()
+            solved_board = back_solver.backtracking_algorithm(constructed_board, size)
+            write_json("SOLVE_BOARD", solve_genetic(constructed_board, solved_board, population_size))
 
         
 
@@ -103,7 +106,7 @@ def solve_backtracking(board: List[List[int]], size: int) -> Dict:
     
     back_solver = BacktrackingSolver()
     solved_board = back_solver.backtracking_algorithm(board, size)
-    
+        
     return {
         "solvedBoard": flatten_board(solved_board),
         "iterations": back_solver.iterations,
@@ -126,10 +129,11 @@ def solve_genetic(unsolved_board: List[List[int]], solved_board: List[List[int]]
     population[0].genetic_algorithm(population,population_size)
 
     return {
-        "solvedBoard": solved_board,
+        "solvedBoard": flatten_board(solved_board),
         "iterations": population[0].iterations,
         "time": population[0].elapsed_time,
         "memory":  population[0].memory_used,
+        "hey": "there"
     }
 
 
