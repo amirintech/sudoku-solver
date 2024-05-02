@@ -36,4 +36,4 @@ To install the Sudoku Solver app, follow these steps:
 
 - [Amir Moahmed](https://github.com/amirintech)
 - [Sameh](https://github.com/Sambonic)
-- [Amir Moahmed](https://github.com/amirintech)
+- [Amr Magdy](https://github.com/)
