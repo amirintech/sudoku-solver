@@ -22,13 +22,13 @@ function createCell(): HTMLDivElement {
 
 // Determine if the current cell should have a right border
 function isRightBorderCell(col: number, size: number) {
-  const blockSize = Math.sqrt(size);
+  const blockSize = Math.ceil(Math.sqrt(size));
   return col % blockSize === 0 && col !== size;
 }
 
 // Determine if the current cell should have a bottom border
 function isBottomBorderCell(row: number, size: number) {
-  const blockSize = Math.sqrt(size);
+  const blockSize = Math.floor(Math.sqrt(size));
   return row % blockSize === 0 && row !== size;
 }
 

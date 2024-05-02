@@ -9,7 +9,7 @@ const config: AppConfig = {
   algorithm: SolutionAlgorithm.GENETIC,
   difficulity: BoardComplexity.EASY,
   population: 100,
-  size: 9,
+  size: 6,
 };
 
 const cells = drawBoard(config.size);

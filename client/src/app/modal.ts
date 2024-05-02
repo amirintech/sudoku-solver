@@ -61,7 +61,7 @@ function openTestModal() {
   modal.appendChild(timerContainter);
   modal.appendChild(stepsContainer);
 
-  const timerId = startTimer(timer);
+  let timerId = startTimer(timer);
 
   win.api.onRunTests((res) => {
     const loadingSetp = steps["0-loading"];
@@ -80,7 +80,7 @@ function openTestModal() {
         document.getElementById("backtracking-time").innerText =
           timer.innerText;
         stopTimer(timerId);
-        startTimer(timer);
+        timerId = startTimer(timer);
       } else if (res.data.algorithm == SolutionAlgorithm.GENETIC) {
         document.getElementById("genetic-time").innerText = timer.innerText;
         stepCompleted(testingStep);
