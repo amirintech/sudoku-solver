@@ -133,7 +133,6 @@ def solve_genetic(unsolved_board: List[List[int]], solved_board: List[List[int]]
         "iterations": population[0].iterations,
         "time": population[0].elapsed_time,
         "memory":  population[0].memory_used,
-        "hey": "there"
     }
 
 

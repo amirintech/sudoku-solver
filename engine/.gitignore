@@ -1,0 +1,4 @@
+build/
+dist/
+bridge.spec
+__pycache__/
