@@ -1,6 +1,6 @@
 # Sudoku Solver App
 
-Welcome to our Sudoku Solver app README! This application is developed as part of an AI course project aimed at solving Sudoku puzzles of different sizes, including 9x9, 6x6, and 4x4. The solver engine is implemented in Python, utilizing backtracking and genetic algorithms. The client-side interface is built using Electron JS.
+This application is developed as part of an AI course project aimed at solving Sudoku puzzles of different sizes, including 9x9, 6x6, and 4x4. The solver engine is implemented in Python, utilizing backtracking and genetic algorithms. The client-side interface is built using Electron JS.
 
 ## Features
 
